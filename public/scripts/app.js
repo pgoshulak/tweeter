@@ -4,14 +4,13 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-const data = [
-  {
+const data = [{
     "user": {
       "name": "Newton",
       "avatars": {
-        "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
+        "small": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
         "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-        "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
+        "large": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
       },
       "handle": "@SirIsaac"
     },
@@ -24,11 +23,12 @@ const data = [
     "user": {
       "name": "Descartes",
       "avatars": {
-        "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
+        "small": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
         "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-        "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
+        "large": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
       },
-      "handle": "@rd" },
+      "handle": "@rd"
+    },
     "content": {
       "text": "Je pense , donc je suis"
     },
@@ -38,9 +38,9 @@ const data = [
     "user": {
       "name": "Johann von Goethe",
       "avatars": {
-        "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
+        "small": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
         "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-        "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
+        "large": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
       },
       "handle": "@johann49"
     },
@@ -54,57 +54,54 @@ const data = [
 // Transform the date posted into time-since posted (eg. 3 hours ago)
 function timeAgo(timestamp) {
   let dateDiff = new Date() - new Date(timestamp);
-  
+
   // Check if years >= 1
   let yearsAgo = dateDiff / (1000 * 60 * 60 * 24 * 365)
   if (yearsAgo >= 2) {
     return `${Math.floor(yearsAgo)} years ago`
   } else if (yearsAgo >= 1) {
-    return `${Math.floor(yearsAgo)} year ago`
+    return `A year ago`
   }
   // Check if months >= 1
   let monthsAgo = dateDiff / (1000 * 60 * 60 * 24 * 30)
   if (monthsAgo >= 2) {
     return `${Math.floor(monthsAgo)} months ago`
   } else if (monthsAgo >= 1) {
-    return `${Math.floor(monthsAgo)} month ago`
+    return `A month ago`
   }
   // Check if weeks >= 1
   let weeksAgo = dateDiff / (1000 * 60 * 60 * 24 * 7)
   if (weeksAgo >= 2) {
     return `${Math.floor(weeksAgo)} weeks ago`
   } else if (weeksAgo >= 1) {
-    return `${Math.floor(weeksAgo)} week ago`
+    return `A week ago`
   }
   // Check if days >= 1
   let daysAgo = dateDiff / (1000 * 60 * 60 * 24)
   if (daysAgo >= 2) {
     return `${Math.floor(daysAgo)} days ago`
   } else if (daysAgo >= 1) {
-    return `${Math.floor(daysAgo)} day ago`
+    return `A day ago`
   }
   // Check if hours >= 1
   let hoursAgo = dateDiff / (1000 * 60 * 60)
   if (hoursAgo >= 2) {
     return `${Math.floor(hoursAgo)} hours ago`
   } else if (hoursAgo >= 1) {
-    return `${Math.floor(hoursAgo)} hour ago`
+    return `An hour ago`
   }
   // Check if min >= 1
   let minsAgo = dateDiff / (1000 * 60)
   if (minsAgo >= 2) {
-    return `${Math.floor(minsAgo)} mins ago`
+    return `${Math.floor(minsAgo)} minutes ago`
   } else if (minsAgo >= 1) {
-    return `${Math.floor(minsAgo)} min ago`
+    return `A minute ago`
   }
   // Check if secs >= 1
   let secsAgo = dateDiff / (1000)
   if (secsAgo >= 2) {
-    return `${Math.floor(secsAgo)} secs ago`
-  } else if (secsAgo >= 1) {
-    return `${Math.floor(secsAgo)} sec ago`
+    return `${Math.floor(secsAgo)} seconds ago`
   }
-
   return 'A moment ago'
 }
 
@@ -134,7 +131,7 @@ function createTweetElement(tweetData) {
   let $body = $('<div></div>')
     .addClass('tweet-body')
     .text(tweetData.content.text);
-  
+
   // Construct tweet footer
   let $footer = $('<footer></footer>')
   // Time posted
@@ -179,4 +176,10 @@ $(document).ready(() => {
   // var $tweet = createTweetElement(tweetData);
   // $('#tweets-container').append($tweet);
   renderTweets(data);
+
+  $('.new-tweet textarea').on('focus', () => {
+    $('.new-tweet').addClass('focus-view')
+  }).on('blur', () => {
+    $('.new-tweet').removeClass('focus-view')
+  });
 })

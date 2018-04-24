@@ -6,6 +6,7 @@ nav#nav-bar {
   color: #e8fdff;
   padding: 0px 2em;
   top: 0;
+  z-index: 5;
 }
 
 nav#nav-bar img.logo {

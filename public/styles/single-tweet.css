@@ -11,6 +11,8 @@ article.tweet:hover, article.tweet:hover * {
 
 article.tweet:hover {
   border-color: #999;
+  box-shadow: 0px 4px 5px 1px #999;
+  transform: translateY(-2px);
 }
 
 article.tweet > header {

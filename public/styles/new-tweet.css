@@ -4,6 +4,8 @@
   border-radius: 5px;
   background-color: #EEE;
   padding: 0.5em 0.5em;
+  position: relative;
+  z-index: 4;
 }
 
 .new-tweet h2 {
@@ -33,4 +35,8 @@
 .counter-over-limit {
   color: red;
   font-weight: 700;
+}
+
+.new-tweet.focus-view {
+  box-shadow: 0 0 0 5000px rgba(0,0,0,.5);
 }
