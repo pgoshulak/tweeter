@@ -1,0 +1,38 @@
+article.tweet {
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+article.tweet > header {
+  background-color: #EEE;
+  width: 100%;
+  padding: 8px;
+}
+
+article.tweet > header a {
+  color: inherit;
+  text-decoration: none;
+}
+
+article.tweet .avatar {
+  background-color: pink;
+  border-radius: 4px;
+  height: 50px;
+  width: 50px;
+  /* Not sure why but there is a 3px 'invisible' bottom margin */
+  margin-bottom: -3px;
+}
+
+article.tweet .fullname {
+  display: inline-block;
+  font-size: 1.6em;
+  font-weight: 700;
+  margin-left: 8px;
+  vertical-align: top;
+}
+
+article.tweet .handle {
+  float: right;
+}
