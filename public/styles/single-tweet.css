@@ -1,8 +1,16 @@
 article.tweet {
-  border: 1px solid #aaa;
+  border: 1px solid #ddd;
   border-radius: 5px;
   margin: 10px 0;
   overflow: hidden;
+}
+
+article.tweet:hover, article.tweet:hover * {
+  transition: all ease 0.2s;
+}
+
+article.tweet:hover {
+  border-color: #999;
 }
 
 article.tweet > header {
@@ -11,9 +19,13 @@ article.tweet > header {
   padding: 8px;
 }
 
-article.tweet > header a {
+article.tweet > header span {
   color: inherit;
+  opacity: 0.8;
   text-decoration: none;
+}
+article.tweet:hover > header span {
+  opacity: 1.0;
 }
 
 article.tweet .avatar {
@@ -52,9 +64,19 @@ article.tweet .time-posted {
 
 article.tweet .button-area {
   float: right;
-  /* opacity: 0; */
+  opacity: 0;
+}
+
+article.tweet:hover .button-area {
+  opacity: 1;
 }
 
 article.tweet i {
   margin: 0 2px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+article.tweet i:hover {
+  opacity: 1;
+  transition-duration: 0s;
 }
