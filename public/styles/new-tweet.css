@@ -29,3 +29,8 @@
   float: right;
   font-size: 0.8em;
 }
+
+.counter-over-limit {
+  color: red;
+  font-weight: 700;
+}
