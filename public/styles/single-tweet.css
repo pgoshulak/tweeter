@@ -36,3 +36,25 @@ article.tweet .fullname {
 article.tweet .handle {
   float: right;
 }
+
+article.tweet .tweet-body {
+  margin: 16px 10px;
+}
+
+article.tweet footer {
+  border-top: 1px solid #EEE;
+  padding: 8px;
+}
+
+article.tweet .time-posted {
+  font-size: 0.8em;
+}
+
+article.tweet .button-area {
+  float: right;
+  /* opacity: 0; */
+}
+
+article.tweet i {
+  margin: 0 2px;
+}
