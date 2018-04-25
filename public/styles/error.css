@@ -1,0 +1,20 @@
+#error-message {
+  position: absolute;
+  padding: 10px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 60px;
+  width: 200px;
+  
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  display: none;
+}
+
+#error-message > span {
+  display: block;
+  text-align: center;
+}

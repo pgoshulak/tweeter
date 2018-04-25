@@ -115,7 +115,7 @@ function validateTweet($form) {
 
 function submitTweet(formData) {
   console.log(formData)
-  return $.post('/tweets', formData)
+  return $.post('/tweetsa', formData)
 }
 
 function clearComposer() {
@@ -125,13 +125,30 @@ function clearComposer() {
   $('#composer > textarea').trigger('keyup')
 }
 
+// Render an error message
+function showErrorMessage(message) {
+  const $errorMessageArea = $('#error-message');
+  const $errorText = $('#error-message > span');
+
+  // Set the message text
+  $errorText.text(message);
+  // Show then hide the message
+  $errorMessageArea
+    .clearQueue()
+    .slideDown('fast')
+    .delay(2000)
+    .slideUp('slow');
+}
+
+// Master error handler
 function handleError(err) {
   if (err === ERR_ZERO_LENGTH) {
-    console.log('Tweet has no chars!')
+    showErrorMessage('Tweet has no chars!');
   } else if (err === ERR_OVER_CHAR_LIMIT) {
-    console.log('Tweet has too many chars!')
+    showErrorMessage('Tweet has too many chars!')
   } else {
-    console.error(err);
+    showErrorMessage(`Error ${err.status}: ${err.statusText}`)
+    console.log(err);
   }
 }
 
