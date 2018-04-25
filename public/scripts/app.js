@@ -179,11 +179,28 @@ function bindComposerDimScreen() {
   });
 }
 
+function bindComposerToggle() {
+  let $composeArea = $('.new-tweet');
+
+  $('#compose-toggle').on('click', () => {
+    // Slide down with focus
+    if ($composeArea.css('display') === 'none') {
+      $composeArea.slideDown('fast');
+      $('#composer-textarea').focus();
+    } else {
+      // Slide up WITHOUT focusing
+      // Note: cannot use slideToggle() + focus() due to screen dim on textarea focus
+      $composeArea.slideUp('fast');
+    }
+  })
+}
+
 /* ----- Main execution ----- */
 
 $(document).ready(() => {
   loadAndRenderTweets();
   bindComposerDimScreen();
+  bindComposerToggle();
 
   $('#composer').on('submit', (e) => {
     e.preventDefault();

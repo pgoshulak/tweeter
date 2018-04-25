@@ -1,11 +1,13 @@
 .new-tweet {
-  margin: 0;
+  margin: 0 0 20px;
   border: 1px solid #aaa;
   border-radius: 5px;
   background-color: #EEE;
   padding: 0.5em 0.5em;
   position: relative;
   z-index: 4;
+
+  display:none;
 }
 
 .new-tweet h2 {
@@ -39,4 +41,5 @@
 
 .new-tweet.focus-view {
   box-shadow: 0 0 0 5000px rgba(0,0,0,.5);
+  transition: box-shadow ease 0.5s;
 }

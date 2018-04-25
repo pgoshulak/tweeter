@@ -30,7 +30,7 @@ nav .nav-right {
 
 /* ----- Compose button ----- */
 
-button#compose {
+button#compose-toggle {
   margin: auto;
   height: 60px;
 
@@ -43,7 +43,10 @@ button#compose {
 
   cursor: pointer;
 }
-button#compose:hover {
+button#compose-toggle:hover {
   background-color: #FFF;
   color: #222;
+}
+button#compose-toggle:focus {
+  outline: none;
 }
