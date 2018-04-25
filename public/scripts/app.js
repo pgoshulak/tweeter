@@ -115,7 +115,7 @@ function validateTweet($form) {
 
 function submitTweet(formData) {
   console.log(formData)
-  return $.post('/tweetsa', formData)
+  return $.post('/tweets', formData)
 }
 
 function clearComposer() {
