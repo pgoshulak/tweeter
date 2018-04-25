@@ -118,10 +118,30 @@ function renderTweets(data) {
   }
 }
 
+function submitTweet(formData) {
+  console.log(formData)
+  return $.post('/tweets', formData)
+}
+
+function clearComposer() {
+  // Clear the form
+  $('#composer')[0].reset()
+  // Reset the char counter by triggering keyup event
+  $('#composer > textarea').trigger('keyup')
+}
+
 $(document).ready(() => {
-  // var $tweet = createTweetElement(tweetData);
-  // $('#tweets-container').append($tweet);
   renderTweets(data);
+
+  $('#composer').on('submit', (e) => {
+    e.preventDefault();
+    let formData = $(e.target).serialize()
+    submitTweet(formData)
+      .then(clearComposer)
+      .fail((err) => {
+        console.error('Error: ',err)
+      });
+  });
 
   $('.new-tweet textarea').on('focus', () => {
     $('.new-tweet').addClass('focus-view')
