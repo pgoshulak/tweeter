@@ -21,3 +21,29 @@ nav#nav-bar span.header {
   float: left;
   line-height: 80px;
 }
+
+nav .nav-right {
+  float: right;
+  height: 100%;
+  display: flex;
+}
+
+/* ----- Compose button ----- */
+
+button#compose {
+  margin: auto;
+  height: 60px;
+
+  background-color: #EFE;
+  border: 1px solid #222;
+  border-radius: 5px;
+
+  color: #00a087;
+  font-size: 1.2em;
+
+  cursor: pointer;
+}
+button#compose:hover {
+  background-color: #FFF;
+  color: #222;
+}
