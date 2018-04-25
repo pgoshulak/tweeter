@@ -4,6 +4,21 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
+const ERR_ZERO_LENGTH = 'err-zero-length';
+const ERR_OVER_CHAR_LIMIT = 'err-over-char-limit';
+
+
+// Resolve a JQuery 'promise' chain (results in calling the chain's .then() handler)
+function resolveWith(data) {
+  return $.Deferred().resolve(data);
+}
+// Reject a JQuery 'promise' chain (results in calling the chain's .fail() handler)
+function rejectWith(message) {
+  return $.Deferred().reject(message);
+}
+
+/* ----- Tweet loading and rendering ----- */
+
 function createTweetElement(tweetData) {
   let $tweet = $('<article></article>').addClass('tweet');
 
@@ -81,6 +96,23 @@ function sortTweetsAscending(data) {
   });
 }
 
+/* ----- Tweet submission ----- */
+
+// Form validation before submitting
+function validateTweet($form) {
+  let tweetLength = $form.find('textarea').val().length;
+
+  // Validate tweet length
+  if (tweetLength === 0) {
+    return rejectWith(ERR_ZERO_LENGTH)
+  } else if (tweetLength > 140) {
+    return rejectWith(ERR_OVER_CHAR_LIMIT)
+  }
+
+  // Resolve the serialized form data
+  return resolveWith($form.serialize())
+}
+
 function submitTweet(formData) {
   console.log(formData)
   return $.post('/tweets', formData)
@@ -93,6 +125,16 @@ function clearComposer() {
   $('#composer > textarea').trigger('keyup')
 }
 
+function handleError(err) {
+  if (err === ERR_ZERO_LENGTH) {
+    console.log('Tweet has no chars!')
+  } else if (err === ERR_OVER_CHAR_LIMIT) {
+    console.log('Tweet has too many chars!')
+  } else {
+    console.error(err);
+  }
+}
+
 $(document).ready(() => {
   loadTweets()
     .then(sortTweetsAscending)
@@ -103,12 +145,10 @@ $(document).ready(() => {
 
   $('#composer').on('submit', (e) => {
     e.preventDefault();
-    let formData = $(e.target).serialize()
-    submitTweet(formData)
+    validateTweet($(e.target))
+      .then(submitTweet)
       .then(clearComposer)
-      .fail((err) => {
-        console.error('Error: ',err)
-      });
+      .fail(handleError);
   });
 
   $('.new-tweet textarea').on('focus', () => {
