@@ -81,6 +81,7 @@ function createTweetElement(tweetData) {
 
 function renderTweets(data) {
   let $tweetContainer = $('#tweets-container')
+  $tweetContainer.empty();
   for (tweet of data) {
     $tweetContainer.append(createTweetElement(tweet));
   }
@@ -94,6 +95,13 @@ function sortTweetsAscending(data) {
   return data.sort((a,b) => {
     return b.created_at - a.created_at;
   });
+}
+
+function loadAndRenderTweets() {
+  return loadTweets()
+    .then(sortTweetsAscending)
+    .then(renderTweets)
+    .fail(handleError);
 }
 
 /* ----- Tweet submission ----- */
@@ -114,7 +122,6 @@ function validateTweet($form) {
 }
 
 function submitTweet(formData) {
-  console.log(formData)
   return $.post('/tweets', formData)
 }
 
@@ -123,7 +130,18 @@ function clearComposer() {
   $('#composer')[0].reset()
   // Reset the char counter by triggering keyup event
   $('#composer > textarea').trigger('keyup')
+  return resolveWith()
 }
+
+function submitAndRefreshTweets(e) {
+  return validateTweet($(e.target))
+    .then(submitTweet)
+    .then(clearComposer)
+    .then(loadAndRenderTweets)
+    .fail(handleError);
+}
+
+/* ----- Error handling ----- */
 
 // Render an error message
 function showErrorMessage(message) {
@@ -152,25 +170,23 @@ function handleError(err) {
   }
 }
 
-$(document).ready(() => {
-  loadTweets()
-    .then(sortTweetsAscending)
-    .then(renderTweets)
-    .fail((err) => {
-      console.error('Error: ',err)
-    });
-
-  $('#composer').on('submit', (e) => {
-    e.preventDefault();
-    validateTweet($(e.target))
-      .then(submitTweet)
-      .then(clearComposer)
-      .fail(handleError);
-  });
-
+/* ----- Misc functions ----- */
+function bindComposerDimScreen() {
   $('.new-tweet textarea').on('focus', () => {
     $('.new-tweet').addClass('focus-view')
   }).on('blur', () => {
     $('.new-tweet').removeClass('focus-view')
+  });
+}
+
+/* ----- Main execution ----- */
+
+$(document).ready(() => {
+  loadAndRenderTweets();
+  bindComposerDimScreen();
+
+  $('#composer').on('submit', (e) => {
+    e.preventDefault();
+    submitAndRefreshTweets(e)
   });
 })
