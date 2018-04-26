@@ -1,5 +1,7 @@
 "use strict";
 
+// Sample MongoDB interface setup
+
 const MongoClient = require('mongodb').MongoClient;
 const MONGODB_URI = 'mongodb://localhost:27017/tweeter';
 
@@ -20,10 +22,10 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   }
 
   getTweets((err, tweets) => {
-    // console.log('logging each tweet:')
+    console.log('logging each tweet:')
 
     for (let tweet of tweets) {
-      // console.log(tweet);
+      console.log(tweet);
     }
 
     console.log(db)

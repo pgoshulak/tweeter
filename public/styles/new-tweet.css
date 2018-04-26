@@ -39,6 +39,7 @@
   font-weight: 700;
 }
 
+/* Effect to dim the rest of the screen when textarea is focused */
 .new-tweet.focus-view {
   box-shadow: 0 0 0 5000px rgba(0,0,0,.5);
   transition: box-shadow ease 0.5s;

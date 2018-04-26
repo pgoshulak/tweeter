@@ -7,7 +7,6 @@
 const ERR_ZERO_LENGTH = 'err-zero-length';
 const ERR_OVER_CHAR_LIMIT = 'err-over-char-limit';
 
-
 // Resolve a JQuery 'promise' chain (results in calling the chain's .then() handler)
 function resolveWith(data) {
   return $.Deferred().resolve(data);
@@ -79,6 +78,7 @@ function createTweetElement(tweetData) {
   return ($tweet);
 }
 
+// Render the tweet data to the page
 function renderTweets(data) {
   let $tweetContainer = $('#tweets-container')
   $tweetContainer.empty();
@@ -87,16 +87,19 @@ function renderTweets(data) {
   }
 }
 
+// Get the tweet data
 function loadTweets() {
   return $.get('/tweets');
 }
 
+// Sort tweets to most-recent first
 function sortTweetsAscending(data) {
   return data.sort((a,b) => {
     return b.created_at - a.created_at;
   });
 }
 
+// Full load->render cycle with error handling
 function loadAndRenderTweets() {
   return loadTweets()
     .then(sortTweetsAscending)
@@ -121,10 +124,12 @@ function validateTweet($form) {
   return resolveWith($form.serialize())
 }
 
+// POST tweet to server
 function submitTweet(formData) {
   return $.post('/tweets', formData)
 }
 
+// Clear the Compose textarea
 function clearComposer() {
   // Clear the form
   $('#composer')[0].reset()
@@ -133,6 +138,7 @@ function clearComposer() {
   return resolveWith()
 }
 
+// Full tweet submission cycle including data refreshing
 function submitAndRefreshTweets(e) {
   return validateTweet($(e.target))
     .then(submitTweet)
@@ -171,6 +177,8 @@ function handleError(err) {
 }
 
 /* ----- Misc functions ----- */
+
+// Focusing on the Compose textarea dims the rest of the screen
 function bindComposerDimScreen() {
   $('.new-tweet textarea').on('focus', () => {
     $('.new-tweet').addClass('focus-view')
@@ -179,6 +187,7 @@ function bindComposerDimScreen() {
   });
 }
 
+// Clicking the Compose nav button shows/hides the composer
 function bindComposerToggle() {
   let $composeArea = $('.new-tweet');
 
@@ -198,10 +207,14 @@ function bindComposerToggle() {
 /* ----- Main execution ----- */
 
 $(document).ready(() => {
+  // Load and render tweets to page
   loadAndRenderTweets();
+
+  // Set up UI bindings
   bindComposerDimScreen();
   bindComposerToggle();
 
+  // Submit tweet binding
   $('#composer').on('submit', (e) => {
     e.preventDefault();
     submitAndRefreshTweets(e)
